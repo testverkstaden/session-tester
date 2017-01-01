@@ -1,0 +1,41 @@
+<!-- About Modal -->
+<div class="modal fade" id="aboutModal" tabindex="-1" role="dialog" aria-labelledby="aboutModal" aria-hidden="true">
+	<div class="modal-dialog modal-sm">
+	    <div class="modal-content">
+			<div class="modal-header">
+				<h1 class="modal-title pauseHeader" id="myModalLabel">ABOUT</h1>
+				<img class="center-block" 
+					src="img/session_tester.png">
+				</img>
+			</div>
+			<div class="modal-body"> 
+				<p class="version">
+					<b>Session Tester {{version}}</b>
+				</p>
+				<p class="version">
+					<b>AngularJs {{angularVersion.full}} | ({{angularVersion.codeName}})</b>
+				</p>
+				<text>{{session.getAbout()[0]}}</text>
+				<br>
+				<br>
+				<p ng-repeat="contact in session.getContacts()">{{contact}}</p>
+				<br>
+				<a href="{{session.getLinks()[0]}}" target="_blank">View project on Github</a>
+						 
+			</div>
+				<div class="modal-footer">
+					<img class="center-block" 
+						src="img/opensource.png">
+					</img>	
+
+					<button type="button" 
+							class="close btnResume" 
+							data-dismiss="modal" 
+							aria-hidden="true">Done
+					</button>
+				</div>
+		</div>
+
+	</div>
+</div>
+<!-- About Modal -->

@@ -1,0 +1,64 @@
+<!-- START Option bar -->
+<div class="optionBar" >
+
+	<!-- File button -->
+	<div class="btn-group">
+		<button class="btn btn-info btn-sm dropdown-toggle"
+				type="button" data-toggle="dropdown" 
+				>FILE <span class="caret"></span>
+		</button>
+		<ul class="dropdown-menu">
+			<li><a id="saveAndDownload" href="#"
+					ng-click="session.save()">Save and download</a>
+
+			</li>
+    		<li>
+    			<a href="#" 
+		      	data-toggle="modal" 
+			    data-target="#preferencesModal"
+				data-backdrop="static" 
+				data-keyboard="true">Preferences</a>
+    		</li>
+    		
+		</ul>
+	</div>
+
+	<!-- Report button -->
+	<div class="btn-group">
+		<button class="btn btn-info btn-sm dropdown-toggle"
+				type="button" data-toggle="dropdown" 
+				>REPORT <span class="caret"></span>
+		</button>
+		<ul class="dropdown-menu">
+			<li><a href="#" ng-click="session.generateWebReport()">Generate Web Report...</a></li>
+		</ul>
+	</div>
+
+	<!-- Help button -->
+	<div class="btn-group">
+		<button class="btn btn-info btn-sm dropdown-toggle"
+				type="button" data-toggle="dropdown" 
+				>HELP <span class="caret"></span>	
+		</button>
+		<ul class="dropdown-menu">
+			<li><a href="#"	
+		      		data-toggle="modal" 
+			    	data-target="#cheatsheetModal"
+					data-backdrop="default" 
+					data-keyboard="default"
+					>Cheat Sheet...</a>
+				
+			</a></li>
+    		<li><a href="#" ng-click="session.help()">Help...</a></li>
+    		<li>
+    		<a href="#" 
+			data-toggle="modal" 
+			data-target="#aboutModal"	
+			data-keyboard="true">About...</a>
+    		</li>
+		</ul>
+	</div>
+	
+
+</div>
+<!-- END Option bar -->

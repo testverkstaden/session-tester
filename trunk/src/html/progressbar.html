@@ -1,0 +1,13 @@
+<!-- Progress bar-->
+		<div class="progress">
+	  		<div class="progress-bar progress-bar-striped"
+	  			ng-class="session.getProgressStyle()" 
+  				style="width:{{session.getProgressDuration()}}%"> 	
+  			 	<p ng-show="!done" class="clock" 
+  			 		ng-model="session.getCurrentSession().duration">
+  			 		{{minutesNiceName}}:{{secondsNiceName}}
+  			 	</p>
+  	  		</div>
+  	  	<p class="done" ng-show="done">DONE<p>
+  	  	</div>
+<!-- Progress bar-->

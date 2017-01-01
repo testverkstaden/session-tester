@@ -1,0 +1,26 @@
+<!-- clearSessionModal Modal -->
+<div class="modal fade noselect" 
+	id="clearSessionModal" 
+	tabindex="-1" role="dialog" 
+	aria-labelledby="clearSessionModal" 
+	aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+           
+             <div class="modal-body">
+             	<h4 class="modal-title" id="myModalLabel">Are you sure? Current session will be deleted!</h4>
+             </div>
+            <div class="modal-footer">
+            	<button type="button" class="btn btn-default" 
+             			data-dismiss="modal"
+             			ng-click="session.cancelClearSession()">Cancel
+            	</button>
+             	<button type="button" class="btn btn-primary"
+                		data-dismiss="modal"
+                		ng-click="session.clear()">Clear
+             	</button>
+            </div>
+    	</div>
+  </div>
+</div>
+<!-- clearSessionModal Modal -->

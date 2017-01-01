@@ -1,0 +1,30 @@
+{
+  "name": "Session-Tester",
+  "version": "1.0.0",
+  "description": "No description yet...",
+  "repository": "https://github.com/qualityminds/session-tester",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Paul Lachenardière <poplabbet@gmail.com>",
+  "contributors": [
+    {
+      "name": "Paul Lachenardière",
+      "email": "poplabbet@gmail.com",
+      "name": "Christian Karlsson",
+      "email": "karlsson.j.christian@gmail.com",
+      "name": "Martin Jansson (Project Manager)",
+      "email": "martin.jansson@qualityminds.se"
+    }
+  ],
+  "license": "Apache",
+  "dependencies": {
+    "express": "^4.12.2",
+    "request": "^2.55.0"
+  },
+  "engines": {
+    "node": "0.12.0",
+    "npm": "2.5.1"
+  }
+}

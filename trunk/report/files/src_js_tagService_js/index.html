@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - src\js\tagService.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>src\js\tagService.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">63.70</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">133</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">5.62</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">0.45</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">(function() {
+var services = angular.module(&#039;tagService&#039;,[]);
+
+services.service(&#039;TagService&#039;, function() {
+	var service = {
+	
+	tags: [
+		{name: &quot;@area&quot;},
+		{name: &quot;@bug&quot;},
+		{name: &quot;@data&quot;},
+		{name: &quot;@enviroment&quot;},
+		{name: &quot;@issue&quot;},
+		{name: &quot;@notes&quot;},
+		{name: &quot;@task&quot;},
+		{name: &quot;@timestamp&quot;}
+		],
+	
+	primes: [
+&quot;The truth is out there&quot;,
+&quot;The owls are not what they seem&quot;,
+&quot;Fire, walk with me...&quot;,
+&quot;Consider self-reference.&quot;,
+&quot;What are the boundaries?&quot;,
+&quot;Try something negative.&quot;,
+&quot;Testability first.&quot;,
+&quot;Who&#039;s your client?&quot;,
+&quot;What&#039;s the language?&quot;,
+&quot;Consider the opposite.&quot;,
+&quot;Unless...&quot;,
+&quot;What about time?&quot;,
+&#039;Do you mean &quot;the&quot;, or do you really mean &quot;a&quot;?&#039;,
+&quot;Ask someone else.&quot;,
+&quot;Is there a DIFFERENT boundary?&quot;,
+&quot;What can you vary?&quot;,
+&quot;What&#039;s the rate?&quot;,
+&quot;When was the last time it changed? Why?&quot;,
+&quot;Draw a blank.&quot;,
+&quot;What&#039;s the bigger picture?&quot;,
+&quot;What would &lt;insert name here&gt; do?&quot;,
+&quot;What&#039;s the tip of the iceberg? What&#039;s down below?&quot;,
+&quot;Is this good enough?&quot;,
+&quot;Disable it!&quot;,
+&quot;Starve it!&quot;,
+&quot;Overwhelm it!&quot;,
+&quot;Who cares?&quot;,
+&quot;Who&#039;s in charge?&quot;,
+&quot;Wait.... do that again.&quot;,
+&quot;Change your mind.&quot;,
+&quot;What&#039;s the point?&quot;,
+&quot;What does the user want to do?&quot;,
+&quot;Why would a user do that?&quot;,
+&quot;Is that the most complicated test?&quot;,
+&quot;Is that the simplest test?&quot;,
+&quot;What time is it?&quot;,
+&quot;What do the numbers tell you?&quot;,
+&quot;Can you interpret it in different ways?&quot;,
+&quot;Describe the system in one sentence.&quot;,
+&quot;Look for vague instructions.&quot;,
+&quot;Look carefully at the words.&quot;,
+&quot;What&#039;s constraining you?&quot;,
+&quot;What are the inputs?&quot;,
+&quot;What&#039;s going on behind the scenes?&quot;,
+&quot;Can you hear that?&quot;,
+&quot;Backspace.&quot;,
+&quot;Draw a picture of the entire system.&quot;,
+&quot;Talk to a user.&quot;,
+&quot;Why would a user do that?&quot;,
+&quot;Frustrate the flow.&quot;,
+&quot;Break the rules.&quot;,
+&quot;Follow the rules.&quot;,
+&quot;Mouse wheel.&quot;,
+&quot;Only use the keyboard.&quot;,
+&quot;High contrast mode.&quot;,
+&quot;How do you KNOW that worked? What might be fooling you?&quot;,
+&quot;What are sales people saying about this?&quot;,
+&quot;What laws might apply?&quot;,
+&quot;Try something radical.&quot;,
+&quot;A change would do you good.&quot;,
+&quot;What&#039;s on the clock?&quot;,
+&quot;Look out the window.&quot;,
+&quot;Ask for help.&quot;,
+&quot;What goals are the users trying to achieve?&quot;,
+&quot;How does this software make someone&#039;s life easier?&quot;,
+&quot;Draw a picture.&quot;,
+&quot;How many are there?&quot;,
+&quot;What about special characters.&quot;,
+&quot;What are your favorite testing numbers?&quot;,
+&quot;Time for a walk?&quot;,
+&quot;Defocus.&quot;,
+&quot;Focus.&quot;,
+&quot;What are you missing?&quot;,
+&quot;What would Grandma do?&quot;,
+&quot;Do you know why you&#039;re doing that?&quot;,
+&quot;Plunge in and quit.&quot;,
+&quot;What&#039;s on the floor?&quot;,
+&quot;Look on your desk.&quot;,
+&quot;What are the outputs?&quot;,
+&quot;Look at the source.&quot;,
+&quot;What are you listening to?&quot;,
+&quot;What are your favorite testing numbers?&quot;,
+&quot;What about accessibility?&quot;,
+&quot;What do you see?&quot;,
+&quot;Describe this feature in one sentence.&quot;,
+&#039;Have you thought of &quot;rule of three&quot;?&#039;,
+&quot;What do you hear?&quot;,
+&quot;How much memory is being consumed?&quot;,
+&quot;How&#039;s your memory?&quot;,
+&quot;Write down three ideas now!&quot;,
+&quot;Test the first thing you see.&quot;,
+&quot;Frustrate the flow.&quot;,
+&quot;Try touring in different ways.&quot;,
+&quot;Generate errors.&quot;,
+&quot;Maximize. Minimize. Repeat.&quot;,
+&quot;What do you see now that you didn&#039;t see before?&quot;
+],
+
+    aboutDummy: [&quot;Labores accusata efficiendi an nec. Pro ex equidem platonem, ea eum labore imperdiet, ullum malorum cu eum. Modus sonet quando in pro, has cu iudicabit reformidans philosophia, regione omittam argumentum has ad. Recusabo voluptatum mea ea. Cum utroque offendit te, dicat minimum disputando mei ut. Labores accusata efficiendi an nec. Pro ex equidem platonem, ea eum labore imperdiet, ullum malorum cu eum. Modus sonet quando in pro, has cu iudicabit reformidans philosophia, regione omittam argumentum has ad. Recusabo voluptatum mea ea. Cum utroque offendit te, dicat minimum disputando mei ut. Labores accusata efficiendi an nec. Pro ex equidem platonem, ea eum labore imperdiet, ullum malorum cu eum. Modus sonet quando in pro, has cu iudicabit reformidans philosophia, regione omittam argumentum has ad. Recusabo voluptatum mea ea. Cum utroque offendit te, dicat minimum disputando mei ut. Labores accusata efficiendi an nec. Pro ex equidem platonem, ea eum labore imperdiet, ullum malorum cu eum. Modus sonet quando in pro, has cu iudicabit reformidans philosophia, regione omittam argumentum has ad. Recusabo voluptatum mea ea. Cum utroque offendit te, dicat minimum disputando mei ut....&quot;],
+
+     about: [&quot;Session Tester is an ongoing opensource project. Previously written as a Java Swing application by Jonathan Kohl. This version is a total rewrite in Html5 using AngularJs. Developers of the AngularJs version are Paul Lachenardiére and Christian Karlsson. Supervised by Martin Jansson @ QualityMinds.&quot;],
+
+     links: [&quot;https://github.com/qualityminds/session-tester&quot;],
+
+	 contacts: [&quot;Paul Lachenardière | poplabbet[at]gmail.com&quot;,
+	 		   	&quot;Christian Karlsson | karlsson.j.christian[at]gmail.com&quot;,
+	 			&quot;Martin Jansson     | martin.jansson[at]qualityminds.se&quot;]
+
+	}; 
+	return service;
+});
+
+
+//end
+})();</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

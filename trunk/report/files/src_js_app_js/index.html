@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - src\js\app.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>src\js\app.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">72.95</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">459</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">47.10</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">3.83</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">(function() {
+	var app = angular.module(&#039;sessionTester&#039;, [&#039;tagService&#039;, &#039;sessionService&#039;]);
+
+	app.controller(&quot;sessionController&quot;, function($scope, $timeout, $interval,
+		SessionService, TagService) {
+	
+		var sessionBean;
+		$scope.currentPrime = undefined;
+		$scope.running = false; 
+		$scope.pause = false;
+		$scope.done = false;
+		$scope.generatedXml = false;
+		$scope.minutesNiceName = &#039;0&#039;;
+		$scope.secondsNiceName = &#039;00&#039;; 	
+		$scope.version = &quot;0.6 | (Beta)&quot;;
+		$scope.angularVersion = angular.version;
+		$scope.animations = {on : true};
+		var self = this;
+		
+		// Calls with &quot;ng-init&quot; on page load.
+		this.init = function() {
+			this.findOldSession();
+		};
+
+		
+		//Option Bar
+		this.save = function () {
+		alert(&quot;Generating Xml (not implemented)&quot;);
+		};
+		this.preferences = function () {
+		};
+		this.generateWebReport = function () {
+		alert(&quot;GenerateWebReport (not implemented)&quot;);
+		};
+		this.cheatSheet = function () {
+		};
+		this.help = function () {
+		alert(&quot;Help (not implemented)&quot;);
+		};
+		this.about = function () {
+		};
+		//Option Bar
+
+		this.getTags = function() {		
+			return TagService.tags;
+		};
+		this.getAbout = function() {		
+			//return TagService.aboutDummy;
+			return TagService.about;
+		};
+		this.getContacts = function() {		
+			return TagService.contacts;
+		};
+		this.getLinks = function() {		
+			return TagService.links;
+		};
+
+		this.findOldSession = function() {
+		
+			if(localStorage.length &gt; 0) {
+				console.log(&quot;local storage exists = &quot;, localStorage);
+				
+				try {
+				sessionBean = JSON.parse(localStorage.getItem(&quot;sessionBean&quot;));
+				} catch(err) {
+					return getEmptySession();
+				} 
+				
+				// if it&#039;s done. Return a new one 
+				if(sessionBean.done === true &amp;&amp; sessionBean.generatedXml === true) {
+					getEmptySession();	
+				} 
+
+				// If i&#039;s not done. Start it all upp.
+				if(sessionBean.duration &gt; 0) {
+					this.resumeSession();
+					self = this;
+					$timeout(function(){
+						document.getElementById(&quot;pause&quot;).click();
+					},1000);	
+				}
+			} 
+			else {
+				getEmptySession();
+			}
+
+		};
+		
+		this.getCurrentSession = function() {
+			if(sessionBean === null) {
+			sessionBean = findOldSession();
+			return sessionBean;
+			}			
+			else{
+				saveSessionToLocalStorage(sessionBean);
+			}
+			return sessionBean; 
+		};
+		  
+		function saveSessionToLocalStorage(object) {
+			if(sessionBeanIsDefined())
+			localStorage.setItem(&quot;sessionBean&quot;, JSON.stringify(object));
+		}
+
+		this.setFocusDelay = function(time, id) {
+			setTimeout(function(){
+				document.getElementById(id).focus();
+			},time);
+		};
+
+		this.setBlurDelay = function(time, id) {
+			setTimeout(function(){
+				document.getElementById(id).blur();
+			},time);
+		};
+
+
+		this.addTag = function(selectedTag) {
+			if(selectedTag === &#039;@timestamp&#039;) {
+				var date = new Date().toString();
+				selectedTag = selectedTag + &quot; &quot; + &quot;[&quot;+date+&quot;]&quot;;
+			}	
+			
+			if(sessionBean.notes.length === 0) {
+				sessionBean.notes = sessionBean.notes + selectedTag.toUpperCase();
+			}
+			else {
+				sessionBean.notes = sessionBean.notes + &#039;\n&#039; + selectedTag.toUpperCase();	
+			}
+			sessionBean.notes = sessionBean.notes + &#039;\n&#039;;
+			this.setFocusDelay(0, &#039;notes&#039;);
+		};
+
+		//setters currently not in use
+		this.setId = function(id) {sessionBean.id = id;};
+		this.setStart = function(start) {sessionBean.start = start;};
+		this.setEnd = function(end) {sessionBean.end = end;};
+		//setters currently not in use
+		
+		this.setDuration = function(duration) {
+			var dur = duration * 60;
+			sessionBean.duration = dur;
+			convertingTimeToNiceName(dur);
+		};
+		
+		this.setNotes = function(notes) {
+			console.log(&quot;notes &quot; + notes);
+			sessionBean.notes = notes;
+		};
+		
+		this.getMinutes = function() {
+			return SessionService.getMinutes();
+		};
+		var setRunning = function(bool) {
+			sessionBean.running = bool;
+			$scope.running = bool;
+		};
+		var setGeneratedXml = function(bool) {
+			sessionBean.generatedXml = bool;
+			$scope.generatedXml = bool;
+		};
+		var setDone = function(bool) {
+			sessionBean.done = bool;
+			$scope.done = bool;
+		};
+
+		this.startSession = function() {  
+			
+			this.start = function() {
+			if($scope.running &amp;&amp; !$scope.done){
+				this.setFocusDelay(1000, &#039;notes&#039;);
+				//update				
+				return;
+			}
+			
+			if(sessionBean.duration === 0) {
+				//default duration
+				this.setDuration(5);
+			}
+			
+			sessionBean.id = 1;
+			sessionBean.start = new Date().toString();
+			this.addTag(&quot;@NOTES&quot;);
+			setRunning(true);
+			setDone(false);
+			setGeneratedXml(false);
+			console.log(sessionBean);
+			startTimer();
+			this.setFocusDelay(1000, &#039;notes&#039;);	
+			};
+			
+			this.cancelStartSession = function() {
+				if($scope.running) {
+					this.setFocusDelay(1000, &#039;notes&#039;);
+					return;	
+				} 
+				sessionBean = getEmptySession();
+			};
+		};
+
+		this.pauseKey = function(event, modalBool) {
+		
+			event.stopPropagation();
+			event.preventDefault();
+			if($scope.running === undefined || (!$scope.running &amp;&amp; !modalBool)) {
+				return;
+			}
+			
+			var pausePressed = false;
+			var enterPressed = false;
+			if(event.which === 19) {
+				pausePressed = true;
+			}
+			if(event.which === 27) {
+				enterPressed = true;	
+			}
+			
+			if(pausePressed || enterPressed) {
+				
+				if(modalBool) {
+					this.resumeSession();
+				$(&#039;#pauseModal&#039;).modal(&#039;hide&#039;);					
+				}
+				else if(pausePressed) {
+					this.pauseSession();
+					$(&#039;#pauseModal&#039;).modal(&#039;show&#039;);
+				} else {
+					console.log(&quot;enter pressed&quot;);
+				}
+
+			}
+		}; 
+
+		this.pauseSession = function() {
+			setRunning(false); 
+			$scope.pause = true;
+			stopTimer();
+		};
+
+		this.resumeSession = function(event) {
+			setRunning(true);
+			$scope.pause = false;
+			startTimer();
+			this.setFocusDelay(1000, &#039;notes&#039;);
+		};
+
+		this.clearSession = function() {
+			this.clear = function() {
+				stopTimer();
+				localStorage.clear();
+				getEmptySession();
+				setRunning(false);
+				convertingTimeToNiceName(0);
+				return true;
+			};
+
+			this.cancelClearSession = function() {
+				this.setFocusDelay(1000, &#039;notes&#039;);
+				return false;
+			};
+			
+		};
+
+		this.shortenDuration = function() {
+			if(sessionBean.duration &gt; 60) {
+			sessionBean.duration = sessionBean.duration - 60;
+			convertingTimeToNiceName(sessionBean.duration);
+			}
+			this.setFocusDelay(1000, &#039;notes&#039;);
+		};
+		this.extendDuration = function() {
+			if((sessionBean.duration / 60) &lt; 119) {
+			sessionBean.duration = sessionBean.duration + 60; 
+			convertingTimeToNiceName(sessionBean.duration);
+			}
+			this.setFocusDelay(1000, &#039;notes&#039;);
+		};
+
+		var getNextRandomPrime = function() {
+			var random = Math.floor((Math.random() * TagService.primes.length));
+				return TagService.primes[random];	
+		};		
+		
+		var promise;
+		this.primeMe = function() {
+			var self = this;
+			$timeout.cancel(promise);
+			$scope.currentPrime = getNextRandomPrime();
+			$(&#039;.primeOutput&#039;).show();
+			
+			promise = $timeout(function(){
+				$(&#039;.primeOutput&#039;).fadeOut(&#039;slow&#039;);
+				done();
+			},3000);
+
+			var done = function() {
+			self.setFocusDelay(100, &#039;notes&#039;);
+			$timeout.cancel(promise);	
+			};
+		};
+
+		this.getProgressDuration = function() {
+			 var progress = (sessionBean.duration / 60) / 1.2;
+			 return progress;
+		};
+
+		this.getProgressStyle = function() {
+			if($scope.running === true) {
+				return &#039;progress-bar-success active&#039;;
+			} else {
+				return &#039;progress-bar-warning disabled&#039;;
+			}
+		};
+		this.getSelectTagStyle = function() {
+			if($scope.running === false || $scope.running === undefined) {
+				return &#039;tag_disabled&#039;;
+			}
+		};
+		this.getStartBtnStyle = function() {
+			var style = &quot;&quot;;
+			if($scope.pause === false) {
+				style = &#039;btn-success &#039;;
+			} else {
+				style = &#039;btn-warning&#039;;
+			} 
+			return style;
+		};
+	
+		$interval(function() {
+				if(!$scope.running &amp;&amp; !$scope.pause &amp;&amp; $scope.animations.on) {
+				self.toggleAnimation(&#039;btnStart&#039;,&#039;animated pulse&#039;);
+				} 
+			}, 2000);
+
+		//var self = this;
+		$interval(function() {
+				if($scope.running &amp;&amp; !$scope.pause &amp;&amp; $scope.animations.on) {
+				self.toggleAnimation(&#039;btnPrimeMe&#039;,&#039;animated rubberBand&#039;);
+				} 
+			}, 20000);
+
+
+		this.toggleAnimation = function(className,animationClass, delay) {
+			if(!$scope.animations.on) {return;}
+			$timeout(function() {	
+
+				$(&#039;.&#039;+className).addClass(animationClass);
+				$timeout(function() {
+				$(&#039;.&#039;+className).removeClass(animationClass);	
+				},1000);
+
+			},delay);					
+		};
+
+		this.getStartBtnName = function() {
+			if($scope.running) {return &#039;EDIT&#039;;}			
+			if(!$scope.running &amp;&amp; !$scope.pause) {return &#039;START&#039;;}
+			if($scope.pause &amp;&amp; !$scope.running) {return &#039;PAUSED&#039;;}
+		};
+		this.getStartModalName = function() {
+			if($scope.running) {return &#039;EDIT&#039;;}			
+			if(!$scope.running) {return &#039;START NEW SESSION&#039;;}
+		};
+		this.getDefaultNotes = function() {
+			return &quot;Press the green start button below to start a new session&quot;;
+		};
+
+		function getEmptySession() {
+			sessionBean = SessionService.getNewSession();	
+			convertingTimeToNiceName(0);
+			saveSessionToLocalStorage(sessionBean);
+			console.log(&#039;new and empty session = &#039;, sessionBean);
+			return sessionBean;		
+		}
+
+		function sessionBeanIsDefined() {
+			if (angular.isDefined(sessionBean)) {return true;}
+        	return false;
+		}
+
+		function convertingTime(sec) {
+			sessionBean.duration = sessionBean.duration - sec;
+			if(sessionBean.duration &gt;= 0) {
+			convertingTimeToNiceName(sessionBean.duration);
+			}
+			return sessionBean.duration;
+		} 
+
+		function convertingTimeToNiceName(duration) {
+			var min = Math.floor(duration / 60);
+			var sec = duration - min * 60;
+
+			if(min &lt; 10 ) {
+				$scope.minutesNiceName = &#039;0&#039;+parseInt(min); 
+			} else {
+				$scope.minutesNiceName = parseInt(min); 
+			}
+			if(sec &lt; 10) {
+				$scope.secondsNiceName = &#039;0&#039;+parseInt(sec); 
+			} else{
+				$scope.secondsNiceName = parseInt(sec); 
+			}
+		}
+
+		function countDown() {
+			if(sessionBean.duration &lt;= 0) {
+				sessionBean.duration = 0;
+				stopTimer();
+			} else {
+				convertingTime(1);			
+			}
+		}
+
+		var stop;
+		var startTimer = function() {
+
+			if(!sessionBeanIsDefined()) {return;}
+
+			stop = $interval(function() {
+				countDown();
+			}, 1000 );
+			
+		};
+
+		var stopTimer = function() {
+			
+			if(!sessionBeanIsDefined()) {return;}
+
+			if (angular.isDefined(stop)) {
+            $interval.cancel(stop);
+            stop = undefined;
+            setRunning(false);
+        	} 
+
+        	else {
+        		startTimer();
+        		stopTimer();
+        		return;
+        	}
+        	
+        	if(sessionBean.duration === 0 ) {
+        		sessionBean.end = new Date().toString();
+        		setDone(true);
+        		
+        		self.toggleAnimation(&#039;progress&#039;,&#039;animated shake&#039;);
+        		self.toggleAnimation(&#039;icon&#039;,&#039;animated wobble&#039;);
+        		
+        		if($scope.generatedXml === false) {
+        		//Simulated click deactivated
+        		//document.getElementById(&quot;saveAndDownload&quot;).click();
+        		// TODO --- setGeneratedXml is set to true but don&#039;t do anything yet... 
+        		setGeneratedXml(true);
+        		}	
+  	        }
+		};
+
+	}); //end controller
+
+	})(); //end</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

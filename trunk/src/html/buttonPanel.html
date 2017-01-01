@@ -1,0 +1,53 @@
+<div class="buttonpanel">
+	<button class="btn btn-success btn-sm btnStart" 
+			type="button"
+			id="btnStart"
+			ng-class="session.getStartBtnStyle()"
+			data-toggle="modal" data-target="#startModal"
+			ng-click="session.startSession()"
+			data-backdrop="static" 
+			data-keyboard="false">{{session.getStartBtnName()}}
+    </button>
+	<button class="btn btn-default btn-sm"
+			id="pause"
+			ng-class="{'disabled': !running}"
+			type="button"
+			ng-click="session.pauseSession()"
+			data-toggle="modal" 
+			data-target="#pauseModal"
+			data-backdrop="static" 
+			data-keyboard="false">PAUSE	
+	</button>
+	<button class="btn btn-default btn-sm" type="button"
+			ng-click="session.clearSession()"
+			ng-class="{'disabled': !running}"
+			data-toggle="modal" 
+			data-target="#clearSessionModal"
+			data-backdrop="static" 
+			data-keyboard="false">CLEAR SESSION
+	</button>
+	<button class="btn btn-default btn-sm" type="button" 
+			ng-click="session.shortenDuration()"
+			ng-disabled="!running">SHORTEN
+	</button>
+	<button class="btn btn-default btn-sm" type="button" 
+			ng-click="session.extendDuration()"
+			ng-disabled="!running">EXTEND
+	</button>
+	<button class="btn btn-default btn-sm" type="button" 
+			ng-click="session.save()"
+			ng-disabled="!running">SAVE
+	</button>
+		
+	<div ng-click="load()" class="fileUpload btn btn-default btn-sm">
+    <input id="uploadBtn" type="file" class="upload"/>
+    <span>LOAD</span>
+   
+	</div>
+
+	<button class="btn btn-default fo btn-sm btnPrimeMe"
+			type="button" 
+			ng-click="session.primeMe()">PRIME ME!
+	</button>
+		
+	</div>

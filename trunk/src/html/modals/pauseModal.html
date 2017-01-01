@@ -1,0 +1,25 @@
+<!-- Pause Modal -->
+<div class="modal fade noselect" 
+	id="pauseModal" 
+	tabindex="-1" 
+	role="dialog" 
+	aria-labelledby="pauseModal" 
+	aria-hidden="true"
+	ng-keyup="session.pauseKey($event, true)">
+   <div class="modal-dialog modal-sm">
+		<div class="modal-content">
+			           
+			<div class="modal-body"> 
+			    <h1 class="modal-title pauseHeader" id="myModalLabel">PAUSE</h1>
+			</div>
+			<div class="modal-footer">
+			    <button type="button" class="close btnResume" 
+			    		data-dismiss="modal" aria-hidden="true"
+			            ng-click="session.resumeSession()">Run
+			    </button>
+			</div>
+		
+		</div>
+	</div>
+</div>
+<!-- Pause Modal -->

@@ -1,0 +1,96 @@
+<!-- Start Modal -->
+<div class="modal fade noselect" id="startModal" tabindex="-1" role="dialog" aria-labelledby="startModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <button type="button" class="close" 
+                    aria-hidden="true"
+                    data-toggle="popover" 
+                    data-placement="top"
+                    data-trigger="focus" 
+                    title="Specify your name and mission. Decide the estimated time..." 
+                    data-content="Popover on left">Help?
+            </button>
+            <h4 class="modal-title" id="myModalLabel">
+                {{session.getStartModalName()}}</h4>
+            </div>
+            
+            <form name="startSessionForm" 
+                  ng-submit="session.startSession()"
+                  novalidate>
+            <div class="modal-body">
+            <table class="table table-hover table-condensed table-responsive"> 
+                <th class="testerTh">Tester</th>
+                <td>
+                	<input 
+                           id = "testerId"
+                           type="text"
+                           name="tester" 
+                           class="tester" 
+                    	   placeholder=" Testers name..."
+                           ng-model="session.getCurrentSession().tester" 
+                       	   ng-maxlength="40"
+                           required>
+                	</input>
+                <span 
+                    class="formError"
+                    ng-show="startSessionForm.tester.$error.maxlength">Max 40 letters!
+                    </span>
+                     <span 
+                    class="formOk"
+                    ng-show="startSessionForm.tester.$valid">Ok
+                    </span>
+                </td>
+                <tr>
+                <th class="missionTh">Mission</th>
+                <td>
+                	<input 
+                           id="missionId"
+                           type="text" 
+                		   name="mission"
+                           class="mission"
+                           placeholder=" Describe your mission..."
+                           ng-model="session.getCurrentSession().mission" 
+                	   	   required
+                	   	   ng-maxlength="40">
+                	</input>
+                    <span 
+                    class="formError"
+                    ng-show="startSessionForm.mission.$error.maxlength">Max 40 letters! 
+                    </span>
+                     <span 
+                    class="formOk"
+                    ng-show="startSessionForm.mission.$valid">Ok
+                    </span>
+            	</td>
+                <tr>
+                <th>Duration (min)</th>
+                <td>
+                    <select 
+                            ng-options="min for min in session.getMinutes()" 
+                            ng-model="min"
+                            ng-change="session.setDuration(min)"
+                            >
+                            <option value="" ng-if="false">
+                            </option>
+                    </select>
+                </td>
+            </table>        
+
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal"
+                ng-click="session.cancelStartSession()">Cancel</button>
+                <input type="submit" value="Start"
+                        class="btn btn-primary"
+                        data-dismiss="modal"
+                        ng-disabled="startSessionForm.$invalid"
+                        ng-click="session.start()">
+                </input>
+        </div>
+        </form>
+    </div>
+  </div>
+</div>
+<!-- Start Modal -->

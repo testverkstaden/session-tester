@@ -1,0 +1,27 @@
+<div class="testerAndMissionDisplay" >
+	<br><br><br>
+	<p><b>Tester:</b> {{session.getCurrentSession().tester}}</p>
+	<p><b>Mission:</b> {{session.getCurrentSession().mission}}</p>
+</div>	
+
+	<div class="selectTagDiv" ng-class="session.getSelectTagStyle()">
+		<select class="selectTag"
+				ng-model="selectedTag"
+				ng-options="tag.name for tag in tags"
+				ng-change="session.addTag(selectedTag.TagId)"
+				ng-disabled="!running">
+				<option value="">Select tag
+				</option>
+		</select>
+	</div>
+
+	<div class="textarea"> 
+		<textarea class="form-control notes" 
+				  id="notes"
+				  rows="14" ng-model="session.getCurrentSession().notes"
+				  spellcheck='false'	
+				  placeholder={{session.getDefaultNotes()}}
+				  ng-disabled="!running">
+				  
+		</textarea>
+	</div>

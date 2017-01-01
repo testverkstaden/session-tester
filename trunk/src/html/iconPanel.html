@@ -1,0 +1,24 @@
+<div class "iconpanel">
+	<button class="btn btn-icons btn-sm btnIconBug" type="button"
+	   		tooltip="Add BUG"
+          	tooltip-placement="left"
+          	tooltip-trigger="mouseenter"
+			ng-class="{'disabled': !running}"
+			ng-click="session.addTag(2)">
+	</button>
+	<button class="btn btn-icons btn-sm btnIconNotes" type="button"
+			tooltip="Add NOTES"
+          	tooltip-placement="left"
+          	tooltip-trigger="mouseenter"
+			ng-class="{'disabled': !running}"
+			ng-click="session.addTag(1)">
+	</button>
+	<button class="btn btn-icons btn-sm btnIconIssue" type="button"
+			tooltip="Add ISSUE"
+          	tooltip-placement="left"
+          	tooltip-trigger="mouseenter"
+			ng-class="{'disabled': !running}"
+			ng-click="session.addTag(3)">
+	</button>
+
+</div>

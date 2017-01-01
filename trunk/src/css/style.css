@@ -1,0 +1,220 @@
+body {
+	background-color: rgb(100,100,100);
+	min-width: 700px;
+}
+.mainframe {
+	background-color: rgba(220,220,220,1);
+	padding: 3em;
+	max-width: 900px;
+	margin-top: 2em;
+	margin-left: auto;
+	margin-right: auto;
+	position: relative;
+	border-radius: 4px; 
+}
+.noselect {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.optionBar {
+	position: relative;
+	float: left;
+	padding: 0em;
+}
+.iconButton {
+	position: relative;
+	float:left;
+}
+
+.headLine {
+	margin-top: -0.23em;
+	margin-bottom: 0em;
+	font-size: 3em;
+	position: relative;
+	float: right;
+}
+.version {
+	font-size: 1em;
+} 
+.icon {
+	margin-top: -2.32em;
+	margin-left: 0.3em;
+	margin-right: -1em;
+	position: relative;
+	float: right;
+}
+.testerAndMissionDisplay {
+	font-size: 1.1em;
+	margin-top: -1em;
+	position: relative;
+	top: 2.3em;	
+}
+.selectTag {
+	margin-bottom: 0.7em;
+}
+.tag_disabled {
+	opacity: 0.4;
+}
+.selectTagDiv {
+	float: right;
+	right: 0em;
+	position: relative;
+}
+.form-control {
+	margin-top: 3em;
+	margin-bottom: 1.5em;
+	border: hidden;	
+}
+#startModal,#preferencesModal {
+	min-width: 370px;
+}
+#preferencesModal {
+}
+.testerTh,.missionTh {
+	width: 16em;
+}
+.tester, .mission {
+	margin-left: 0%;
+	position: static;
+}
+.formError {
+	position: relative;
+	float: right;
+	color: rgb(230,120,120);
+	font-style: italic;
+}
+.tester.ng-valid {
+}
+.tester.ng-invalid, .mission.ng-invalid {
+	color: rgb(230,120,120);
+}
+.formOk {
+	position: relative;
+	float: right;	
+	font-style: italic;
+	color: rgba(20,175,10,0.5);	
+}
+textarea {	
+	resize: none;
+}
+.textarea {
+	box-shadow: 0px 0px 2px rgba(0,0,0, 0.4);
+	
+}
+.notes {	
+	font-size: 1.1em;
+}
+.input {
+	margin: 0.0em;
+}
+.btnStart {
+}
+.btnPrimeMe {
+	position: relative;
+	float: right;
+	color: rgba(130,80,25,1);
+}
+.btnIconBug {
+	padding:15px 20px;
+	position: absolute;
+  	top: 28%;
+ 	left: 0;
+  	z-index: 1000;
+  	float: left;
+	border:none;
+	background-image:url('/img/bug.png');
+	background-size: cover;
+
+
+}
+.btnIconNotes {
+	padding:15px 15px;
+	position: absolute;
+  	top: 34%;
+ 	left: 0;
+ 	margin-left: 9px;
+  	z-index: 1000;
+  	float: left;
+	border:none;
+	background-image:url('/img/notes.png');
+	background-size: cover;
+
+
+}
+.btnIconIssue {
+	padding:15px 15px;
+	position: absolute;
+  	top: 40%;
+ 	left: 0;
+ 	margin-left: 5px;
+  	z-index: 1000;
+  	float: left;
+	border:none;
+	background-image:url('/img/issue.png');
+	background-size: cover;
+
+
+}
+.btnPrimeMe:hover {
+	color: rgba(200,100,20,0.8);	
+	text-shadow: 0px 0px 20px rgba(200,100,20,0.9);
+}
+.primeOutput {
+	position: relative;
+	float: right;
+}
+.primeTxt {
+	font-size: 1.5em;
+}
+.pauseHeader {
+	font-size: 2em;
+	text-align: center;
+}
+.progress {
+	margin-top: 2.5em;
+	background-color: rgb(190,190,190);	
+	box-shadow: 0px 3px 7px rgba(0,0,0, 0.2);
+}
+.clock {
+	margin-left: 5px;
+	margin-right: 5px;
+	font-size: 1.5em;	
+}
+.done {
+	
+	font-size: 1.1em;
+	margin-left: 5px;
+	color: rgba(50,165, 0, 0.8);
+	text-shadow: 0px 0px 25px rgba(0,255,0, 0.5);
+}
+.buttonpanel {
+}
+.iconpanel {
+}
+.iframe {
+	padding: 1em;
+	width:600px; 
+	height:800px;
+}
+.cheatsheet {
+	background-color: rgb(20,20,20);
+}
+.fileUpload {
+    position: relative;
+    overflow: hidden;
+}
+.fileUpload input.upload {
+	cursor: pointer;
+    position: absolute;
+    width:44px;
+    height:24px;
+    font-size: 12px;
+  	line-height: 1.5;
+  	border-radius: 3px;
+    opacity: 0;
+    
+}
